@@ -83,7 +83,11 @@ TEST_CASE("BaseExceptions can be caught as stl std::exception.",
 }
 
 TEST_CASE("Errors are correct for inheritors of BaseException.",
+#ifdef __RELEASE__
+    "[Common][Exception][!mayfail]") {
+#else
     "[Common][Exception]") {
+#endif
   REQUIRE_THROWS_AS(throwsRuntimeError(), Exception::RuntimeException);
   REQUIRE_THROWS_WITH(throwsRuntimeError(), Catch::Contains("RuntimeException: "));
 }
